@@ -38,12 +38,15 @@ class Frame(tk.Frame):
         if x + (clip_size/2) > w:
             a2x = w
             a1x = w - clip_size
-        if y + (clip_size/2) > y:
+        if y + (clip_size/2) > h:
             a2y = h
             a1y = h - clip_size
-    
-        im2 = img.crop((a1x,a1y,a2x,a2y))
-        im2.save(self.out_dir + '/' + str(self.ptr)+'.jpg','JPEG')
+        try:
+            im2 = img.crop((a1x,a1y,a2x,a2y))
+            im2.save(self.out_dir + '/' + str(self.ptr)+'.jpg','JPEG')
+        except Exception as e:
+            print(e)
+
         self.ptr += 1
         img = self.imprep(self.datalist[self.ptr])
         self.il.configure(image=img[1])
